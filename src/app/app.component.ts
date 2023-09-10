@@ -34,7 +34,7 @@ export class AppComponent {
       restrictions: {
         maxFileSize: 1000000,
         maxNumberOfFiles: 3,
-        minNumberOfFiles: 2,
+        minNumberOfFiles: 1,
         allowedFileTypes: ["image/*", "video/*"]
       }
     }).use(Dashboard, {
@@ -42,7 +42,7 @@ export class AppComponent {
         inline: true,
         target: ".dashboard",
         replaceTargetContent: true,
-        note: "Images and video only, 2–3 files, up to 1 MB",
+        note: "Images and video only, 1–3 files, up to 1 MB",
         height: 450,
         metaFields: [
           { id: "license", name: "License", placeholder: "specify license" },
@@ -82,27 +82,8 @@ export class AppComponent {
     // Process the dropped files here
     for (let i = 0; i < files.length; i++) {
       const file = files.item(i);
-      console.log(file)
-      console.log(`Dropped file: ${file?.name}, size: ${file?.size} bytes`);
-    }
-  }
+      if (file?.type.startsWith('image/')) {
 
-   
-  onFileDrop(event: DragEvent) {
-    event.preventDefault();
-    this.tela=false;
-    this.dash=true;
-    const files = event.dataTransfer?.files;
-
-    if (files!.length > 0) {
-      const file = files![0];
-
-      if (file.type.startsWith('image/')) {
-        // It's an image file, create a Blob
-        const reader = new FileReader();
-
-        reader.onload = (e: any) => {
-          console.log(e.target.result);
             this.uppy.addFile({
             name: file.name, // file name
             type: 'image/jpeg', // file type
@@ -116,15 +97,22 @@ export class AppComponent {
             // when using companion in combination with Instagram.
         });
        
-        
-
-
-        };
-
-        reader.readAsDataURL(file);
       } else {
         console.error('Unsupported file type. Please drop an image.');
       }
+    }
+  }
+
+   
+  onFileDrop(event: DragEvent) {
+    event.preventDefault();
+    this.tela=false;
+    this.dash=true;
+    const files = event.dataTransfer!.files;
+
+    if (files!.length > 0) {
+      this.handleDroppedFiles(files)
+ 
     }
   }
 
