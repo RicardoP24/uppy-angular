@@ -1,0 +1,21 @@
+ 
+ 
+ .nada{
+    display: none;
+ }
+
+ .container{
+    height: 500px;
+    border: 1px solid #ccc;
+    .tela1{
+        height: 100%;
+    }
+    .tela2{
+        background-color: rgba(0, 128, 0, 0.373);
+        height: 100%;
+    }
+    .dashboard{
+        height: 100%;
+
+    }
+ }

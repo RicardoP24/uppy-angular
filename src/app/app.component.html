@@ -1,0 +1,14 @@
+<!-- <div class="DashboardContainer"></div> -->
+<div
+  (drop)="onFileDrop($event)"
+  (dragover)="dragOnOver($event)"
+  (dragleave)="dragOnLeave($event)"
+  class="container"
+  >
+  <div class="dashboard" [ngClass]="(!dash)?'nada':''" ></div>
+  <div class="tela1" *ngIf="!tela"  ></div>
+  <div class="tela2" *ngIf="tela"  ></div>
+</div>
+<!-- hover -> tela2 sim e tela 1 nao dashboard nao
+leave -> tela 1 sim tela 2 nao dashboard nao 
+drop -> dashboard sim tela 1 e 2 nao -->
