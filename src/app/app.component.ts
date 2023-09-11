@@ -84,7 +84,8 @@ export class AppComponent {
       const file = files.item(i);
       if (file?.type.startsWith('image/')) {
 
-            this.uppy.addFile({
+            const id=this.uppy.addFile({
+              id:'',
             name: file.name, // file name
             type: 'image/jpeg', // file type
             data:  this.createImageBlob(file),
