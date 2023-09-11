@@ -23,6 +23,8 @@ export class AppComponent {
   title = 'uppy'; 
   dash:boolean=false;
 
+  
+
   constructor(    private imageService: BlobImagemService,
     private sanitizer: DomSanitizer){}
   
@@ -58,6 +60,15 @@ export class AppComponent {
       });
 
 
+      this.uppy.on('upload-success', (file, response) => {
+        console.log(file?.name, response.uploadURL);
+        console.log(file?.id)
+        // const img = new Image();
+        // img.width = 300;
+        // img.alt = file.id;
+        // img.src = response.uploadURL;
+        // document.body.appendChild(img);
+    });
 
     this.uppy.on("complete", result => {
       console.log("successful files:", result.successful);
@@ -77,6 +88,15 @@ export class AppComponent {
 
   }
 
+  downloadFile(url:string) {
+    const pdfUrl = url;
+
+    const a = document.createElement('a');
+    a.href = pdfUrl;
+    a.download = 'downloaded.pdf'; //especificar a extensão 
+
+    a.click();
+}
   
   private handleDroppedFiles(files: FileList) {
     // Process the dropped files here
